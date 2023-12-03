@@ -6,20 +6,71 @@ def read_text_file(file_path='input.txt'):
 
     return lines
 
+def find_first_last_digit(arr): 
+    all_int = re.findall(r'\d+', arr)
+    calibration_value = all_int[0][0] + all_int[-1][-1]
 
-examples = ['1abc2', 'pqr3stu8vwx', 'a1b2c3d4e5f','treb7uchet']
+    return calibration_value 
 
-def sum_first_last_digit(arr):
-    total = 0
-    for i in arr:
-        all_int = re.findall(r'\d+', i)
-        answer = f'{all_int[0][0]}{all_int[-1][-1]}'
+def replace_text_to_digit(line):
+    numbers_dict = {
+    'one': '1',
+    'two': '2',
+    'three': '3',
+    'four': '4',
+    'five': '5',
+    'six': '6',
+    'seven': '7',
+    'eight': '8',
+    'nine': '9'
+}
 
-        total += int(answer)
+    number_word = '|'.join(numbers_dict.keys())
+    all_numbers = re.findall(rf'(?=(\d|{number_word}))', line)
 
-    return total
+    first_number = all_numbers[0]
+    last_number = all_numbers[-1]
 
-print(sum_first_last_digit(read_text_file()))
+
+    if not first_number.isdigit():
+        first_number_digit = numbers_dict[first_number]
+        all_numbers[0] = first_number_digit
+
+        # all_numbers = all_numbers.replace(first_number, first_number_digit)
+    
+    if not last_number.isdigit():
+        last_number_digit = numbers_dict[last_number]
+        all_numbers[-1] = last_number_digit
+        # all_numbers = all_numbers.replace(last_number, last_number_digit)
+    
+    calibration_value = all_numbers[0] + all_numbers[-1]
+
+    return calibration_value
+
+#######################################
+
+lines = read_text_file()
+
+################ Part1 ################ 
+# total1 = 0
+# for line in lines:
+#     calibration_value = find_first_last_digit(line)
+
+#     total1 += int(calibration_value)
+
+# print('Part 1 answer: ', total1)
+
+#######################################
+
+################ Part2 ################ 
+total2= 0
+for line in lines: 
+    calibration_value = replace_text_to_digit(line)
+
+
+    total2 += int(calibration_value)
+
+print('Part 2 answer: ', total2)
 
 
 
