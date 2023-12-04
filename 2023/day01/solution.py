@@ -9,8 +9,9 @@ def read_text_file(file_path='input.txt'):
 ##############################################################################
 
 lines = read_text_file()
-
+##############################################################################
 ################ Part1 ################ 
+
 total1 = 0
 for line in lines:
     all_int = re.findall(r'\d+', line)
@@ -21,9 +22,8 @@ for line in lines:
 
 print('Part 1 answer: ', total1)
 
-##############################################################################
-
 ################ Part2 ################ 
+
 def replace_text_to_digit(line):
     numbers_dict = {
     'one': '1',
