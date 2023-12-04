@@ -1,15 +1,8 @@
+from utils import read_text_file
 import re
 
-def read_text_file(file_path='input.txt'):
-    text_file = open(file_path, 'r')
-    lines = text_file.readlines()
-
-    return lines
-
-##############################################################################
-
 lines = read_text_file()
-##############################################################################
+
 ################ Part1 ################ 
 
 total1 = 0
