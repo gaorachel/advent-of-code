@@ -9,7 +9,7 @@ def read_text_file(file_path="input.txt"):
     return lines
 
 
-lines = read_text_file("dummy2.txt")
+lines = read_text_file()
 
 part_number_sum = 0
 for j in range(len(lines)):
@@ -18,15 +18,12 @@ for j in range(len(lines)):
 
     three_lines = prev_line + lines[j] + next_line
 
-    digits = re.findall(r"\d+", lines[j])
-    print("digits", digits)
+    digits = re.finditer(r"\d+", lines[j])
 
     for digit in digits:
-        i = lines[j].index(digit)
-
-        pre_digit_index = i - 1 if i > 0 else 0
+        pre_digit_index = digit.start() - 1 if digit.start() > 0 else 0
         post_digit_index = (
-            i + len(digit) + 1 if i < len(lines[j]) - 1 else len(lines[j]) - 1
+            digit.end() + 1 if digit.end() < len(lines[j]) - 1 else digit.end()
         )
 
         eligible_area = (
@@ -35,13 +32,9 @@ for j in range(len(lines)):
             + [next_line[pre_digit_index:post_digit_index]]
         )
 
-        # print("eligible_area", eligible_area, "-----------------")
-
         symbols = re.findall(r"[^\d.\n]", "".join(eligible_area))
 
-        print(symbols, eligible_area)
-
         if len(symbols) > 0:
-            part_number_sum += int(digit)
+            part_number_sum += int(digit.group())
 
 print("Part 1 Sum of Part Numbers is: ", part_number_sum)
