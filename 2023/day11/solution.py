@@ -38,11 +38,22 @@ empty_space_col_locs = [
 new_row_len = row_len + len(empty_space_row_locs)
 new_col_len = col_len + len(empty_space_col_locs)
 
-matrix = splitted_lines
-for i in empty_space_row_locs:
-    matrix.insert(i, [["."] * new_col_len])
 
-for j in empty_space_col_locs:
-    matrix.insert(j, [["."] * new_col_len])
+matrix = splitted_lines
+
+for row in matrix:
+    for i in empty_space_col_locs:
+        row.insert(i, ".")
+
+for i in empty_space_row_locs:
+    matrix.insert(i, ["."] * new_row_len)
+# new_galaxy_locations = []
+# for i, row in enumerate(matrix):
+#     for j, node in enumerate(row):
+#         matrix.insert(matrix[i][j], ["."])
+
+# # print(1, node)
+# if node == "#":
+#     new_galaxy_locations.append((i, j))
 
 print(matrix)
