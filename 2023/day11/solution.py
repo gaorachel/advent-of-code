@@ -19,7 +19,6 @@ galaxy_locations = []
 for i, line in enumerate(lines):
     refined_line = list(line.split()[0])
     splitted_lines.append(refined_line)
-
     for j, node in enumerate(refined_line):
         if node == "#":
             galaxy_locations.append((i, j))
@@ -34,14 +33,14 @@ empty_space_col_locs = [
     node for node in range(col_len) if node not in [y for _, y in galaxy_locations]
 ]
 
-new_row_len = row_len + len(empty_space_row_locs)
-
 matrix = splitted_lines
 for row in matrix:
     additional_cols = 1
     for i in empty_space_col_locs:
         row.insert(i + additional_cols, ".")
         additional_cols += 1
+
+new_row_len = row_len + len(empty_space_row_locs)
 
 additional_rows = 0
 for i in empty_space_row_locs:
@@ -57,7 +56,6 @@ for i, row in enumerate(matrix):
 pairs = list(combinations(new_galaxy_locations, 2))
 
 total_distance = 0
-i = 1
 for (x1, y1), (x2, y2) in pairs:
     distance = abs(x2 - x1) + abs(y2 - y1)
     total_distance += distance
