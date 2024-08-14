@@ -1,7 +1,7 @@
 from itertools import combinations
 
 
-def read_text_file(file_path="input.txt"):
+def read_text_file(file_path="dummy.txt"):
     text_file = open(file_path, "r")
     lines = text_file.readlines()
     text_file.close()
@@ -40,7 +40,7 @@ for row in matrix:
         row.insert(i + additional_cols, ".")
         additional_cols += 1
 
-new_row_len = row_len + len(empty_space_row_locs)
+new_row_len = row_len + len(empty_space_row_locs) + 1
 
 additional_rows = 0
 for i in empty_space_row_locs:
