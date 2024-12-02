@@ -19,8 +19,6 @@ total_distance = 0
 for i in range(len(sorted_left_list)):
     total_distance += abs(sorted_left_list[i] - sorted_right_list[i])
 
-    i += 1
-
 print("First part answer: ", total_distance)
 
 ################ Part2 ################

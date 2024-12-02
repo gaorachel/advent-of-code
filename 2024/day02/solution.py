@@ -1,4 +1,4 @@
-def read_text_file(file_path="dummy.txt"):
+def read_text_file(file_path="input.txt"):
     text_file = open(file_path, "r")
     lines = text_file.readlines()
     text_file.close()
@@ -10,21 +10,35 @@ lines = read_text_file()
 
 reports = [line.split() for line in lines]
 
-################ Part1 ################
 
-safe_report_count = 0
-for report in reports:
+def is_safe(report):
     level_diff_list = [
         int(report[i + 1]) - int(report[i]) for i in range(len(report) - 1)
     ]
 
-    safe_diff_list = [1, 2, 3, -1, -2, -3]
-    unsafe_diff_list = set(level_diff_list) - set(safe_diff_list)
+    if all(1 <= abs(diff) <= 3 for diff in level_diff_list) and (
+        all(diff > 0 for diff in level_diff_list)
+        or all(diff < 0 for diff in level_diff_list)
+    ):
 
-    if not unsafe_diff_list:
-        if (max(level_diff_list) > 0 and min(level_diff_list) > 0) or (
-            max(level_diff_list) < 0 and min(level_diff_list) < 0
-        ):  # the diff values should be either all positive or all negative, so if not, that means a report have both increased level and decreased level.
-            safe_report_count += 1
+        return True
+
+
+safe_report_count = 0
+tolerated_report_count = 0
+for report in reports:
+    ################ Part1 ################
+    if is_safe(report):
+        safe_report_count += 1
+
+    ################ Part2 ################
+    else:
+        for i in range(len(report)):
+            modified_report = report[:i] + report[i + 1 :]
+            if is_safe(modified_report):
+                tolerated_report_count += 1
+                break
+
 
 print("First part answer: ", safe_report_count)
+print("Second part answer: ", safe_report_count + tolerated_report_count)
