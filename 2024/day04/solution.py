@@ -54,3 +54,32 @@ for i in range(rows):
                 appearing_times += 1
 
 print("First part answer: ", appearing_times)
+
+
+################ Part2 ################
+
+appearing_times2 = 0
+for i in range(1, rows - 1):
+    for j in range(1, cols - 1):
+
+        if grid[i][j] == "A":
+            backward_letter1 = grid[i + 1][j - 1]
+            backward_letter2 = grid[i - 1][j + 1]
+            forward_letter1 = grid[i + 1][j + 1]
+            forward_letter2 = grid[i - 1][j - 1]
+
+            if (
+                sorted(
+                    [
+                        backward_letter1,
+                        backward_letter2,
+                        forward_letter1,
+                        forward_letter2,
+                    ]
+                )
+                == ["M", "M", "S", "S"]
+                and backward_letter1 != backward_letter2
+            ):
+                appearing_times2 += 1
+
+print("Second part answer: ", appearing_times2)
