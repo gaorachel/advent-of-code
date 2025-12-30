@@ -13,14 +13,24 @@ products = [
     product for sublist in splitted_products for product in sublist if product != "\n"
 ]
 
-################ Part1 ################
-invalid_id_sum = 0
+invalid_id_sum1 = 0
+invalid_id_sum2 = 0
 for product in products:
     [first, last] = product.split("-")
     for i in range(int(first), int(last) + 1):
         str_i = str(i)
-        half = len(str_i) // 2
-        if str_i[:half] == str_i[half:]:
-            invalid_id_sum += i
+        len_i = len(str_i)
 
-print("First part answer:", invalid_id_sum)
+        ################ Part1 ################
+        mid = len_i // 2
+        if str_i[:mid] == str_i[mid:]:
+            invalid_id_sum1 += i
+
+        ################ Part2 ################
+        for j in range(1, len_i):
+            if str_i[:j] * (len_i // j) == str_i:
+                invalid_id_sum2 += i
+                break
+
+print("First part answer:", invalid_id_sum1)
+print("Second part answer:", invalid_id_sum2)
